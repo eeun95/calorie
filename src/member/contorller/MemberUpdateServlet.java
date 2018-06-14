@@ -20,9 +20,7 @@ public class MemberUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String member_id=request.getParameter("member_id");
-		System.out.println("gkgkgkgkgkgkgkggk");
-		
+		String member_id=request.getParameter("member_id");		
 		System.out.println(member_id);
 		Member member=new MemberService().selectOne(member_id);
 		

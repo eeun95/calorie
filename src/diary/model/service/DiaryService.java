@@ -1,7 +1,6 @@
 package diary.model.service;
 
-import static common.JDBCTemplate.close;
-import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -22,5 +21,24 @@ public class DiaryService {
 		ArrayList<DietInfo> info=new DiaryDAO().selectInfo(conn);
 		close(conn);
 		return info;
+	}
+	
+	public int deleteDiary(int no) {
+		Connection conn=getConnection();
+		int result=new DiaryDAO().deleteDiary(conn,no);
+		if(result>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public int insertDiary(String title, String content) {
+		Connection conn=getConnection();
+		int result=new DiaryDAO().insertDiary(conn,title,content);
+		close(conn);
+		return result;
 	}
 }

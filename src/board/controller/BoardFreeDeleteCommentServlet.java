@@ -1,7 +1,6 @@
-package diary.controller;
+package board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import diary.model.service.DiaryService;
-import diary.model.vo.Diary;
-import diary.model.vo.DietInfo;
+import board.model.service.BoardFreeService;
 
 /**
- * Servlet implementation class DiaryMainServlet
+ * Servlet implementation class BoardFreeDeleteCommentServlet
  */
-@WebServlet("/diaryMain")
-public class DiaryMainServlet extends HttpServlet {
+@WebServlet("/boardFreeDeleteComment")
+public class BoardFreeDeleteCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DiaryMainServlet() {
+    public BoardFreeDeleteCommentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +29,26 @@ public class DiaryMainServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		ArrayList<Diary> list=new DiaryService().selectList();
-		ArrayList<DietInfo> info=new DiaryService().selectInfo();
-		request.setAttribute("list", list);
-		request.setAttribute("info", info);
-		request.getRequestDispatcher("views/diary/diaryMain.jsp").forward(request, response);
-	}
+		int commentNo=Integer.parseInt(request.getParameter("commentNo"));
+		int boNum=Integer.parseInt(request.getParameter("boNum"));
+		int resultCom=new BoardFreeService().deleteComment(commentNo);
+		
+		String view="/views/common/msg.jsp";
+		String msg="";
+		
+		if(resultCom>0)
+		{
+			msg="삭제 완료되었습니다.";
+		}
+		else
+		{
+			msg="삭제 실패했습니다.";
+		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc","/boardFreeView?no="+boNum);
+		request.getRequestDispatcher(view).forward(request, response);
+	
+}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

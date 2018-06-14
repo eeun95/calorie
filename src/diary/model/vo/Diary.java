@@ -4,19 +4,19 @@ import java.sql.Date;
 
 public class Diary {
 	private int diaryNum;
+	private String diaryTitle;
 	private String diaryContent;
-	private String diaryWriter;
 	private Date diaryDate;
 	
 	public Diary() {}
 	
 	
 	
-	public Diary(int diaryNum, String diaryContent, String diaryWriter, Date diaryDate) {
+	public Diary(int diaryNum, String diaryTitle, String diaryContent, Date diaryDate) {
 		super();
 		this.diaryNum = diaryNum;
+		this.diaryTitle=diaryTitle;
 		this.diaryContent = diaryContent;
-		this.diaryWriter = diaryWriter;
 		this.diaryDate = diaryDate;
 	}
 
@@ -27,17 +27,17 @@ public class Diary {
 	public void setDiaryNum(int diaryNum) {
 		this.diaryNum = diaryNum;
 	}
+	public String getDiaryTitle() {
+		return diaryTitle;
+	}
+	public void setDiaryTitle(String diaryTitle) {
+		this.diaryTitle = diaryTitle;
+	}
 	public String getDiaryContent() {
 		return diaryContent;
 	}
 	public void setDiaryContent(String diaryContent) {
 		this.diaryContent = diaryContent;
-	}
-	public String getDiaryWriter() {
-		return diaryWriter;
-	}
-	public void setDiaryWriter(String diaryWriter) {
-		this.diaryWriter = diaryWriter;
 	}
 	public Date getDiaryDate() {
 		return diaryDate;
@@ -46,11 +46,14 @@ public class Diary {
 		this.diaryDate = diaryDate;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "Diary [diaryNum=" + diaryNum + ", diaryContent=" + diaryContent + ", diaryWriter=" + diaryWriter
+		return "Diary [diaryNum=" + diaryNum + ", diaryTitle=" + diaryTitle + ", diaryContent=" + diaryContent
 				+ ", diaryDate=" + diaryDate + "]";
 	}
+
 	
 
 }

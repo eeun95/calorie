@@ -25,7 +25,6 @@ public class SessionCounterListener implements HttpSessionListener {
      */
     public void sessionCreated(HttpSessionEvent arg0)  { //세션이 연결이 되면 작동
          activeSessions++;
-         System.out.println("create! : activeSessions:"+activeSessions);
     }
 
 	/**
@@ -33,7 +32,6 @@ public class SessionCounterListener implements HttpSessionListener {
      */
     public void sessionDestroyed(HttpSessionEvent arg0)  {  //세션이 파괴되면 없어짐
     	activeSessions--;
-        System.out.println("destroyed! : session : "+activeSessions);
     }
 	
 }

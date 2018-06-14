@@ -65,8 +65,9 @@ public class AdminMemberDao {
 		PreparedStatement pstmt=null;
 		String sql=prop.getProperty("selectMemberId");
 		try{
+			
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, "%"+searchKeyword+"%");
+			pstmt.setString(1,"%"+searchKeyword+"%");
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				Member member=new Member();
@@ -77,8 +78,7 @@ public class AdminMemberDao {
 				member.setPhone(rs.getString("phone"));
 				member.setEmail(rs.getString("email"));
 				member.setAddress(rs.getString("address"));
-				member.setMember_date(rs.getDate("member_date"));
-
+				member.setMember_date(rs.getDate("member_date"));				
 				list.add(member);
 			}
 		}
@@ -89,7 +89,6 @@ public class AdminMemberDao {
 			close(rs);
 			close(pstmt);
 		}
-		System.out.println(list);
 		return list;
 	}
 	public List<Member> selectMemberbyName(Connection conn,String searchKeyword){

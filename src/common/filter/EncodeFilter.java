@@ -34,7 +34,6 @@ public class EncodeFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
-		request.setAttribute("msg", "메세지출력입니다.(필터)");
 		chain.doFilter(request, response);
 	}
 
