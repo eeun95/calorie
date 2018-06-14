@@ -7,15 +7,15 @@
     
     <%ArrayList<Diary> list=(ArrayList)request.getAttribute("list"); 
     ArrayList<DietInfo> info=(ArrayList)request.getAttribute("info"); 
+
     %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset=UTF-8">
 <title>Calorie#</title>
-<link rel="stylesheet" href="css/bootstrap.css">
     <style>
-        table{
+        .chart{
             border-collapse: collapse;
             width:700px;
             height: 300px;
@@ -23,12 +23,22 @@
             margin: auto;
             text-align: center;
         }
+      
+        .comment-writer {
+          color:navy; font-size:14px;
+        
+        }
+        .comment-date{
+            color:tomato; font-size:10px;
+        
+        }
     </style>
 </head>
 <body>
 <form action="" method="post" enctype="multipart/form-data">
 <div style="margin:50px">
-        <table border="1">
+        <table class='chart' border='1px'>
+        
         <%for(DietInfo di:info) { %>
             <tr>
                 <td rowspan="4" style="width:400px"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpYv9A5YF2nIYLnpxgHUXar9p_vYE_UZXyLn0crCLsc8cr45pH"></td>
@@ -60,18 +70,40 @@
         </table>
         </div>
     </form>
-    
     <!-- 일기장부분 -->
-	<table>
+	<form action="<%=request.getContextPath() %>/diaryInsert" method="post">
+    <div style='margin-left:540px; margin-right:500px'>
+    <table>
+    <input type='text' name='diarytitle' placeholder='제목을 입력하세요'><br/><br/>
+	<textarea name='diarytext'cols='53' rows='2' placeholder='내용을 입력하세요'></textarea>&nbsp
+	<button class="btn btn-success btn-xs">♡기록♡</button>
+	</table>
+	</div>
+	</form>
+	<br/>
+	<table class='table table-hover' style="margin:0 auto; width:500px">
 	<%for(Diary d:list) { %>
 	<tr>
-	<td><%=d.getDiaryWriter() %>
-	</tr>
-	<tr>
-	<td><%=d.getDiaryContent() %></td>
+	<td width='450'>
+	<sub class='comment-writer'><%=d.getDiaryTitle() %></sub>
+	<sub class='comment-date'><%=d.getDiaryDate() %></sub>
+	<br/>
+	<%=d.getDiaryContent() %>
+	</td>
+	<td></td>
+	<td>
+	<button class='btn btn-default' id="del" style="border:0px" value='<%=d.getDiaryNum()%>' onclick='fn_deleteDiary()'><img class="btn-img" style='width:17px; margin:7px'src="image/delete.JPG"></button>
+	</td>
 	</tr>
 	<%} %>
 	</table>
+<script>
+	var del=$("#del").val();
+	function fn_deleteDiary() {
+		location.href="<%=request.getContextPath()%>/diaryDelete?diaryNo="+del;
+	}
+</script>
+        
     
 </body>
 </html>

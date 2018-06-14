@@ -167,9 +167,7 @@ public class BoardFreeDAO {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, b.getFb_title());
-			pstmt.setString(2, b.getFb_content());
-			pstmt.setInt(3, b.getFb_num());
+			
 
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -198,6 +196,30 @@ public class BoardFreeDAO {
 
 		return result;
 	}
+	public int deleteComment(Connection conn, int commentNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteComment");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, commentNo);
+			result =pstmt.executeUpdate();
+			if(result>0) {
+				sql=prop.getProperty("deleteComment2");
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, commentNo);
+				pstmt.executeUpdate();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+	
 
 	public int incrementCount(Connection conn, int no) {
 		PreparedStatement pstmt = null;

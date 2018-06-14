@@ -50,12 +50,9 @@ public class AdminMemberListServlet extends HttpServlet {
 		//관리자용 리스트를 받아오는 로직을 처리
 		//현재 페이지에 표시될 자료만 필터하여 가져오는 로직 구성
 		ArrayList<Member> list=new AdminMemberService().slecetMemberList(cPage,numPerPage);
-		System.out.println(list);
 		//페이지 구성 pageBar작성
 		int totalMember=new AdminMemberService().selectCount();
-		System.out.println("총 자료 수 : "+totalMember);
 		int totalPage=(int)Math.ceil((double)totalMember/numPerPage);
-		System.out.println("총 페이지 : "+totalPage);
 		//페이지 바 구성
 		String pageBar="";
 		//페이지 바의 표현될 페이지 개수

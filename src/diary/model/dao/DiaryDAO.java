@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -42,8 +43,8 @@ public class DiaryDAO {
 			while (rs.next()) {
 				d=new Diary();
 				d.setDiaryNum(rs.getInt(1));
-				d.setDiaryContent(rs.getString(2));
-				d.setDiaryWriter(rs.getString(3));
+				d.setDiaryTitle(rs.getString(2));
+				d.setDiaryContent(rs.getString(3));
 				d.setDiaryDate(rs.getDate(4));
 
 				list.add(d);
@@ -75,6 +76,7 @@ public class DiaryDAO {
 				di.setObjectiveDate(rs.getInt(5));
 				di.setDietDate(rs.getDate(6));
 				
+				info.add(di);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -84,6 +86,44 @@ public class DiaryDAO {
 			close(pstmt);
 		}
 		return info;
+	}
+	
+	public int deleteDiary(Connection conn, int no) {
+		int result=0;
+		PreparedStatement pstmt=null;
+		String sql=prop.getProperty("deleteDiary");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result=pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int insertDiary(Connection conn, String title, String content) {
+		ArrayList<Diary> diary = new ArrayList<>();
+		Diary d = null;
+		PreparedStatement pstmt = null;
+		int result=0;
+		String sql = prop.getProperty("insertDiary");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			result=pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 }

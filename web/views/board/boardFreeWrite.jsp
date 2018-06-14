@@ -79,7 +79,7 @@
         </div>
         <br/>
         <div style="text-align: center">
-            <button class="btn btn-default" onclick="return validate();" style="width:80px;">저장</button>
+            <button class="btn btn-primary" onclick="return validate();" style="width:80px;">저장</button>
             <input class="btn btn-default" type='reset' onclick="location.href='<%=loc%>'" style="width:80px;" value="취소"><br><br>
         </div>
     </div>

@@ -49,7 +49,7 @@
 
 		<div class='login'>
 		<% if(memberLoggedIn==null) { %>
-			<a href="Join.do">join</a>
+			<a href="<%=request.getContextPath() %>/Join.do">join</a>
 			<a onclick="document.getElementById('login').style.display='block'">Login</a>
 		<% }
 		else {

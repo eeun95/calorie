@@ -45,13 +45,16 @@ public class BoardFreeCommentInsertServlet extends HttpServlet {
 		
 		int result=new BoardFreeService().insertComment(bc);
 		
-		String view="/views/common/msg.jsp";
+		String view="";
 		String msg="";
-		String loc="/boardFreeView?no="+boardRef;
-		if(result>0) {
-			msg="댓글이 등록되었습니다.";
-		} else {
+		String loc="";
+		if(result<0) 
+		{
 			msg="댓글 등록에 실패하였습니다.";
+			view="/views/common/msg.jsp";
+			loc="/boardFreeView?no="+boardRef;
+		}else {
+			view="/boardFreeView?no="+boardRef;
 		}
 		
 		request.setAttribute("msg", msg);

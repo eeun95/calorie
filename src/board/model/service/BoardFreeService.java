@@ -71,6 +71,18 @@ public class BoardFreeService {
 		close(conn);
 		return result;
 	}
+	public int deleteComment(int commentNo) {
+		Connection conn=getConnection();
+		int result=new BoardFreeDAO().deleteComment(conn, commentNo);
+		if(result>0) {
+			commit(conn);
+		} else {
+			rollback(conn);			
+		}
+		close(conn);
+		return result;
+	}
+
 	public int incrementCount(int no) {
 	      Connection conn = getConnection();
 	      int result = new BoardFreeDAO().incrementCount(conn, no);

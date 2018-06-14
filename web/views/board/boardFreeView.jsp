@@ -92,10 +92,13 @@ table#tbl-board td {
 		<table style="margin:0 auto;">
  			<tr>
 				<td colspan='2'>
-				<button class="btn btn-info pull-right" onclick="location.href='<%=loc%>'" style="width:80px; margin:5px;">목록으로</button> 
-				<button class="btn btn-default pull-right" onclick="fn_updateBoard()" style="width:80px; margin:5px;">수정하기</button>
+				<button class="btn btn-info pull-right" onclick="location.href='<%=loc%>'" style="width:80px; margin:5px;">목록으로</button>
+			<%if(memberLoggedIn!=null) {
+			if(b.getFb_id().equals(memberLoggedIn.getMember_id())||"admin".equals(memberLoggedIn.getMember_id())) { %>
+ 				<button class="btn btn-default pull-right" onclick="fn_updateBoard()" style="width:80px; margin:5px;">수정하기</button>
 				<button class="btn btn-default pull-right" onclick="fn_deleteBoard()" style="width:80px; margin:5px;">삭제하기</button>
-				</td>				
+ 				<%} } %> 
+ 				</td>				
 			</tr>
 		</table><br/>
 		<script>
@@ -151,7 +154,18 @@ table#tbl-board td {
 	</td>
         <td>
             <button class="btn btn-success btn-xs" value="<%=bc.getCommentNum()%>">&nbsp답글</button>
+            <%if(memberLoggedIn!=null) {
+			if(b.getFb_id().equals(memberLoggedIn.getMember_id())||"admin".equals(memberLoggedIn.getMember_id())) { %>
+            <button id='delCo' class="btn btn-xs" value="<%=bc.getCommentNum()%>" onclick='fn_deleteComment()'>&nbsp삭제</button>
+            <%} } %>
         </td>
+        	<script>
+        	var delCo=$("#delCo").val();
+			function fn_deleteComment() {
+				location.href="<%=request.getContextPath()%>/boardFreeDeleteComment?commentNo="+delCo+"&boNum="+<%=b.getFb_num()%>;
+				
+			}
+			</script>
   <% } 
     else { %>
   		<tr class='level2'>
@@ -171,7 +185,7 @@ table#tbl-board td {
         		var html="<td style='display:none; text-align:left;' colspan=2>";
         		html+='<form action="<%=request.getContextPath()%>/boardFreeCommentInsert" method="post">';
         		html+="<input type='hidden' name='boardRef' value='<%=b.getFb_num()%>'/>";
-        		html+="<input type='hidden' name='boardCommentWriter' value='<%=memberLoggedIn.getMemberId() %>'/>";
+        		html+="<input type='hidden' name='boardCommentWriter' value='<%=memberLoggedIn.getMember_id() %>'/>";
         		html+="<input type='hidden' name='boardCommentLevel' value='2'/>";
         		html+="<input type='hidden' name='boardCommentRef' value='"+$(this).val()+"'/>";
         		html+="<textarea name='boardCommentContent' cols='53' rows='2'></textarea>";
