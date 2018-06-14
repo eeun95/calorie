@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="member.model.vo.Member,java.util.*"%>
 <%
-	ArrayList<Member> list=(ArrayList<Member>)request.getAttribute("list");
-	int numPerPage=(int)request.getAttribute("numPerPage");
-	int cPage=(int)request.getAttribute("cPage");
-	String pageBar=(String)request.getAttribute("pageBar");
+   ArrayList<Member> list=(ArrayList<Member>)request.getAttribute("list");
+   int numPerPage=(int)request.getAttribute("numPerPage");
+   int cPage=(int)request.getAttribute("cPage");
+   String pageBar=(String)request.getAttribute("pageBar");
+
 %>
 <%@ include file="/views/common/header.jsp"%>
 <style>
@@ -24,10 +25,10 @@
       padding: 3px;
       background-color:rgb(0,188,212,0.3);
    }
-   div#search-userId{
+   div#search-member_id{
       display:inline-block;
    }
-   div#search-userName{
+   div#search-member_name{
       display:none;
    }
    div#search-gender{
@@ -71,8 +72,8 @@
 </style>
 <script>
 window.onload=function(){
-    var sid=document.querySelector("#search-userId");
-    var sname=document.querySelector("#search-userName");
+    var sid=document.querySelector("#search-member_id");
+    var sname=document.querySelector("#search-member_name");
     var sgender=document.querySelector("#search-gender");
     
     var searchType=document.querySelector("#searchType");
@@ -99,22 +100,22 @@ window.onload=function(){
       <h2>회원관리</h2>
       <div id='neck-container'>
          <div id='search-container'>
-         검색타임:
+         검색타입:
          <select id='searchType'>
-            <option value='userId'>아이디</option>
-            <option value='userName'>이름</option>
+            <option value='member_id'>아이디</option>
+            <option value='member_name'>이름</option>
             <option value='gender'>성별</option>
          </select>
-         <div id="search-userId">
+         <div id="search-member_id">
             <form action="<%=request.getContextPath()%>/memberFinder">
-               <input type="hidden" name="searchType" value="userId">
+               <input type="hidden" name="searchType" value="member_id">
                <input type="text" name="searchKeyword" size="25" placeholder="검색할 아이디를 입력하세요">
                <button type="submit">검색</button>            
             </form>
          </div>
-         <div id="search-userName">
+         <div id="search-member_name">
             <form action="<%=request.getContextPath()%>/memberFinder">
-               <input type="hidden" name="searchType" value="userName">
+               <input type="hidden" name="searchType" value="member_name">
                <input type="text" name="searchKeyword" size="25" placeholder="검색할 이름를 입력하세요">
                <button type="submit">검색</button>            
             </form>
@@ -148,12 +149,11 @@ window.onload=function(){
                <th>아이디</th>
                <th>이름</th>
                <th>성별</th>
-               <th>나이</th>
-               <th>이메일</th>
                <th>전화번호</th>
+               <th>이메일</th>
                <th>주소</th>
-               <th>취미</th>
                <th>가입날짜</th>
+               <th>삭제</th>
             </tr>
          </thead>
          <tbody>
@@ -167,13 +167,14 @@ window.onload=function(){
             {         
          %>
          <tr>
-            <td><a href="<%=request.getContextPath()%>/memberView?userId=<%=m.getMember_id()%>"><%=m.getMember_id()%></a></td>
+            <td><%=m.getMember_id()%></td>
             <td><%=m.getMember_name()%></td>
             <td><%="M".equals(m.getGender())?"남":"여"%></td>
             <td><%=m.getPhone()%></td>
             <td><%=m.getEmail()%></td>
             <td><%=m.getAddress()%></td>
             <td><%=m.getMember_date()%></td>
+            <td><a href="<%=request.getContextPath()%>/memberDelete?member_id=<%=m.getMember_id()%>&admin=<%=memberLoggedIn.getMember_id()%>"><input type="button" value="삭제"></a></td>
          </tr>
          <%}
          }%>
@@ -186,7 +187,7 @@ window.onload=function(){
    </section>
 </div>
 
-<div id='mouse_menu'>
+   <div id='mouse_menu'>
          <!--마우스 페이지 이동-->
          <table>
             <tr>
@@ -197,6 +198,9 @@ window.onload=function(){
             </tr>
             <tr>
                <td><a href="#none"><b>식단관리</b></a></td>
+            </tr>
+            <tr>
+               <td><a href="#none"><b>운동관리</b></a></td>
             </tr>
             <tr>
                <td><a href="#none"><b>게시판관리</b></a></td>

@@ -32,7 +32,7 @@ public class MemberViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//사용자페이지에서 보낸 데이터 확인
-		String userId=request.getParameter("userId");
+		String userId=request.getParameter("member_id");
 		System.out.println(userId);
 		
 		//DB에서 사용자가 보낸 데이터를 기준으로

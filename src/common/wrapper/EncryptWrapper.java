@@ -18,7 +18,6 @@ public class EncryptWrapper extends HttpServletRequestWrapper{  //password를 �
 		if(key!=null && ("member_pw".equals(key)||"member_pwcheck".equals(key)||"member_pw_new".equals(key))) {
 			value=super.getParameter(key);
 			value=getSHA512(value);
-			System.out.println("암호화 :"+value);
 		}
 		else {
 			value=super.getParameter(key);

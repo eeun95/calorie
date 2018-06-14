@@ -45,7 +45,13 @@
 		<% if(isUsable){%>
 			[<span><%= member_id %></span>]는 사용가능합니다.
 			<br><br>
-			<button type="button" onclick="self.close();">닫기</button>
+			<button id="exit" type="button" onclick="self.close();">닫기</button>
+			<script>
+			$('#exit').click(function(){
+				 $("#member_id_",opener.document).val("<%=member_id%>");
+			});
+        	
+         	</script>
 		<%} else {%>
 		[<span id="duplicated"><%=member_id %></span>]는 이미 사용중입니다.
 		<br><br>
