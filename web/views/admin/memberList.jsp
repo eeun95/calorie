@@ -129,18 +129,6 @@ window.onload=function(){
             </form>
          </div>
       </div>
-   
-      <div id="numPerPage-container">
-         페이지당 회원수:
-         <form name="numPerPageFrm" id="numPerPageFrm" action="<%=request.getContextPath()%>/memberList">
-            <input type="hidden" name="cPage" value="<%=cPage%>">
-            <select name="numPerPage" id="numPerPage">
-               <option value='10' <%=numPerPage==10 ? "selected": ""%>>10</option>
-               <option value='5' <%=numPerPage==5 ? "selected": ""%>>5</option>
-               <option value='3' <%=numPerPage==3 ? "selected": ""%>>3</option>            
-            </select>            
-         </form>
-      </div>
       </div>
       
       <table id="tbl-member">
