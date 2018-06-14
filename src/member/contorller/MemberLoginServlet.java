@@ -36,8 +36,6 @@ public class MemberLoginServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String member_id=request.getParameter("member_id");
 		String member_pw=request.getParameter("member_pw");
-		System.out.println(member_id);
-		System.out.println(member_pw);
 		//서비스단에 id/password check요청
 		int result=new MemberService().loginCheck(member_id,member_pw);
 		
@@ -48,7 +46,6 @@ public class MemberLoginServlet extends HttpServlet {
 			//System.out.println(member);
 			//session객체를 받아서 login데이터를 삽입
 			HttpSession session=request.getSession();
-			System.out.println(session.getId());
 			session.setAttribute("memberLoggedIn", member);
 			session.setMaxInactiveInterval(600);  //로그인 지속시간을 설정 30초 이상이 되면 자동 로그아웃
 			//아이디 저장 쿠키

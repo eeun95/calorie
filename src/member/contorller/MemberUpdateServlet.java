@@ -21,7 +21,6 @@ public class MemberUpdateServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String member_id=request.getParameter("member_id");
-		System.out.println("gkgkgkgkgkgkgkggk");
 		
 		System.out.println(member_id);
 		Member member=new MemberService().selectOne(member_id);

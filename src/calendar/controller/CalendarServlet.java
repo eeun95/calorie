@@ -31,15 +31,7 @@ public class CalendarServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		DietInfo d = new DietInfo();
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+			
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

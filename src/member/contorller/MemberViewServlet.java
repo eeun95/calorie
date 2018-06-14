@@ -32,12 +32,12 @@ public class MemberViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//사용자페이지에서 보낸 데이터 확인
-		String userId=request.getParameter("userId");
-		System.out.println(userId);
+		String member_id=request.getParameter("member_id");
+		System.out.println(member_id);
 		
 		//DB에서 사용자가 보낸 데이터를 기준으로
 		//사용자 정보 가져오기
-		Member member=new MemberService().selectOne(userId);
+		Member member=new MemberService().selectOne(member_id);
 		
 		//DB로부터 받아온 테이터를 페이에 전송하기 위해
 		//request객체에 setAttribute()메소드 이용
