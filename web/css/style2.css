@@ -12,6 +12,8 @@ ul, menu, dir {margin: auto;}
 .login a {cursor:pointer;}
 #username{cursor: text;}
 
+
+
 /************************************************** 로그인 창 관련 **************************************************/
 /* 아이디 비밀번호 쓰는 공간 */
 #userId, #password {width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;}
@@ -116,4 +118,4 @@ span.password {
     }
 }
 /************************************************** footer **************************************************/
-footer {background-color:white; clear:both; height:75px; text-align:center;padding-top:40px;}
+/* footer {background-color:white; clear:both; height:75px; text-align:center;padding-top:40px;} */

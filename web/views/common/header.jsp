@@ -77,7 +77,7 @@
 						<li><a href="<%=request.getContextPath()%>/boardReviewList"> 후기</a></li>
 					</ul> 
 				</span>
-				<a href="#none" class='menu'>Calculator</a>
+				<a href="<%=request.getContextPath() %>/calendarResearch" class='menu'>Calculator</a>
 				<a href="<%=request.getContextPath() %>/diaryMain" class='menu'>D.Diary</a>
 				<%if(memberLoggedIn!=null && "admin".equals(memberLoggedIn.getMember_id())){ %>
 				<a class='menu' href="<%=request.getContextPath()  %>/memberList">administer<span class="animate_line"></span></a>

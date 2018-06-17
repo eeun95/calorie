@@ -17,7 +17,7 @@
 	$(document).ready(function(){
 		$('#calendar').fullCalendar({
 			locale:"ko",
-			editable:true,
+			editable:false,
 			eventLimit:true,
 		    header: {
 		        left: 'prevYear,prev,today,next,nextYear',
@@ -33,13 +33,24 @@
 		    		container:'body'
 		    	});
 		    },
-		    events: events_array
-		    /* events:[
+		    events:"<%=request.getContextPath()%>/calendar"
+		    	
+		    	/* [
 		    	{
 		    		title:'birthday',
 		    		description:'birthday',
-		    		start:'2018-09-30'
-		    	},]*/
+		    		start:'2018-06-10'
+		    	},
+		    	{
+		    		title:'권성준',
+		    		description:'성준',
+		    		start:'2018-06-10'
+		    	},
+		    	{
+		    		title:'성준',
+		    		description:'권성준',
+		    		start:'2018-06-11'
+		    	}]*/
 		});
 	});
 </script>

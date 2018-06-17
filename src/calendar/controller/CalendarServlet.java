@@ -3,7 +3,6 @@ package calendar.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,14 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import com.google.gson.Gson;
 
+import calendar.model.service.CalendarService;
 import calendar.model.vo.Calendar;
-import calendar.model.vo.DietInfo;
+import member.model.vo.Member;
 
 
-@WebServlet("/Calendar")
+@WebServlet("/calendar")
 public class CalendarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,29 +28,21 @@ public class CalendarServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		DietInfo d = new DietInfo();
+		Member memberLoggedId=(Member)request.getSession().getAttribute("memberLoggedIn");
+		String member_id=memberLoggedId.getMember_id();
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		request.setCharacterEncoding("UTF-8");
+		ArrayList<Calendar> list = new CalendarService().selectAll(member_id);
+		System.out.println(list);
+//		response.setContentType("application/json");
+//		response.setCharacterEncoding("UTF-8");
+//		PrintWriter out = response.getWriter();
+//		out.write(new Gson().toJson(list));
+		String json = new Gson().toJson(list);
+		System.out.println(json);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
-		JSONArray jsonArray = new JSONArray();
-		List<Calendar> list = new ArrayList<>();
-		for(Calendar c:list) {
-			JSONObject temp = new JSONObject();
-			temp.put("title", c.getTitle());
-			temp.put("start", c.getStart());
-			temp.put("description", c.getExercise_num());
-		}
+		response.getWriter().write(json);
+		
 		
 	}
 

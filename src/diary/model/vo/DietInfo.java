@@ -7,12 +7,12 @@ public class DietInfo {
 	private int height;
 	private int weight;
 	private int purposeWeight;
-	private int objectiveDate;
+	private Date objectiveDate;
 	private Date dietDate;
 	
 	public DietInfo() {}
 
-	public DietInfo(String memberId, int height, int weight, int purposeWeight, int objectiveDate, Date dietDate) {
+	public DietInfo(String memberId, int height, int weight, int purposeWeight, Date objectiveDate, Date dietDate) {
 		super();
 		this.memberId = memberId;
 		this.height = height;
@@ -54,11 +54,11 @@ public class DietInfo {
 		this.purposeWeight = purposeWeight;
 	}
 
-	public int getObjectiveDate() {
+	public Date getObjectiveDate() {
 		return objectiveDate;
 	}
 
-	public void setObjectiveDate(int objectiveDate) {
+	public void setObjectiveDate(Date objectiveDate) {
 		this.objectiveDate = objectiveDate;
 	}
 
