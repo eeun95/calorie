@@ -18,12 +18,9 @@ public class CalendarService {
 		int result3 = 0;
 		if(result > 0) {
 		   result2 = new CalendarDAO().insertCalendar(conn, di);
-		   System.out.println("배경");
 		   if(result2>0) {
 			   result3 = new CalendarDAO().insertCalendardata(conn, di);
-			   System.out.println("식단");
 			   if(result3>0) {
-				   System.out.println("운동");
 				   commit(conn);
 			   } else {
 				   rollback(conn);
@@ -43,6 +40,36 @@ public class CalendarService {
 		ArrayList<Calendar> list = new CalendarDAO().selectAll(conn, member_id);
 		close(conn);
 		return list;
+	}
+
+	public int selectID(String member_id) {
+		Connection conn = getConnection();
+		int result = new CalendarDAO().selectID(conn, member_id);
+		if(result >0 ) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int resetResearch(String member_id) {
+		Connection conn = getConnection();
+		int result = new CalendarDAO().resetResearch(conn, member_id);
+		int result2 = 0;
+		if(result>0) {
+			result2 = new CalendarDAO().resetCalendar(conn, member_id);
+			if(result2 >0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result2;
 	}
 
 }

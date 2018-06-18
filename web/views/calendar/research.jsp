@@ -40,11 +40,11 @@
 	    <h2>Step 1: 현재 키와 체중</h2>
 	    <div class="form-group">
 		    <label for="height">현재 키를 입력해 주세요</label>
-		    <input type="number" class="form-control" id="height" name="height" placeholder="키">
+		    <input type="number" class="form-control" id="height" name="height" placeholder="키" min="100" max="250">
 	    </div>
 	    <div class="form-group">
 		   <label for="weight">현재 체중를 입력해 주세요</label>
-		   <input type="number" class="form-control" id="weight" name="weight" placeholder="몸무계">
+		   <input type="number" class="form-control" id="weight" name="weight" placeholder="몸무계" min="20" max="500">
 	    </div>
 	    <div class="form-group">
 		   <label for="gender">성별을 입력해 주세요</label>
@@ -59,7 +59,7 @@
 	    <h2> Step 2: 목표하시는 체중</h2>
 	    <div class="form-group">
 	    	<label for="purposeWeight">목표로 하시는 체중을 입력해주세요</label>
-	    	<input type="number" class="form-control" name="purposeWeight" id="purposeWeight" placeholder="목표체중">
+	    	<input type="number" class="form-control" name="purposeWeight" id="purposeWeight" placeholder="목표체중" min="20" max="500">
 	    </div>
 	    <input type="button" name="previous" class="previous btn btn-default" value="Previous" />
 	    <input type="button" name="next" class="next btn btn-info" onclick="next2()" value="Next" />
@@ -68,7 +68,7 @@
 	    <h2>Step 3: 목표기간</h2>
 	    <div class="form-group">
 		    <label for="datepicker">목표기간</label>
-		    <input type="text" class="form-control" id="datepicker" name="objectiveDate" placeholder="클릭해주세요.">
+		    <input type="text" class="form-control" id="datepicker" name="objectiveDate" placeholder="클릭해주세요." readonly="readonly">
 	    </div>
 	    <input type="button" name="previous" class="previous btn btn-default" value="Previous" />
 	    <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
@@ -81,11 +81,56 @@
 		  var current = 1,current_step,next_step,steps;
 		  steps = $("fieldset").length;
 		  $(".next").click(function(){
-		    current_step = $(this).parent();
-		    next_step = $(this).parent().next();
-		    next_step.show();
-		    current_step.hide();
-		    setProgressBar(++current);
+			var height = $("#height");
+			var weight = $("#weight");
+			if(height.val().length==0){
+				alert("키를 입력해 주세요");
+				height.focus();
+				return false;
+			} else {
+				if(weight.val().length==0){
+					alert("체중을 입력해 주세요");
+					weight.focus();
+					return false;
+				}else{
+				 current_step = $(this).parent();
+				 next_step = $(this).parent().next();
+				 next_step.show();
+				 current_step.hide();
+				 setProgressBar(++current);
+				}
+			}
+			return true;
+		  });
+		  $("#height").blur(function(){
+				var height = $("#height");
+				if(height.val().length!=0) {
+				 	if(height.val()>250||height.val()<50) {
+				 		alert("키는 50이상 250이하로 입력하여 주십시오");
+				 		height.val("");
+				 		height.focus();
+				 	}
+			 	}
+		  });
+		  $("#weight").blur(function(){
+				var weight = $("#weight");
+				if(weight.val().length != 0) {
+				 	if(weight.val()>500||weight.val()<20) {
+				 		alert("체중은 20이상 500이하로 입력하여 주십시오");
+				 		weight.val(50);
+				 		weight.focus();
+				 	}
+			 	}
+		  });
+		  $("#purposeWeight").blur(function(){
+				var weight = $("#purposeWeight");
+				if(weight.val().length != 0) {
+				 	if(weight.val()>500||weight.val()<20) {
+				 		alert("체중은 20이상 500이하로 입력하여 주십시오");
+				 		weight.val(50);
+				 		weight.focus();
+				 	}
+			 	}
 		  });
 		  $(".previous").click(function(){
 		    current_step = $(this).parent();
@@ -125,7 +170,7 @@
 		});
 	});
 
-	function next1(){
+	$('.next').click(function name() {
 		var height = $("#height");
 		var weight = $("#weight");
 		if(height.val().length==0){
@@ -140,7 +185,8 @@
 			}
 		}
 		return true;
-	}
+	});
+		
 	
 	function next2(){
 		var weight = $("#purposeWeight");

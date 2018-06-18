@@ -70,5 +70,8 @@
 
 </style>
 <br>
+<form action="<%=request.getContextPath()%>/resetResearch">
+	<input type="submit" style="float:right;" value="Reset" /> 
+</form>
 <div id='calendar'></div>
 <%@ include file="/views/common/footer.jsp"%>

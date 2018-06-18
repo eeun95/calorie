@@ -133,7 +133,7 @@ public class CalendarDAO {
 		String d = sdformat.format(cal.getTime());
 		return d;
 	}
-	private int[] bmiCal(int height, int weight) {
+	private int[] bmiCal(int height, int weight, int purposeWeight) {
 		//bmi계산
 		/*
 		  BMI < 18.5 - 저체중
@@ -145,26 +145,38 @@ public class CalendarDAO {
 		int calorie2 = 0; // bmi별 음식칼로리
 		int calorie3 = 0; // bmi별 운동소모 칼로리
 		int calorie4 = 0; // bmi별 운동소모 칼로리
-		double d = weight/((height*0.01)*(height*0.01)); 
-		if(d>29.9) {
+		double d = weight/((height*0.01)*(height*0.01)); //기존 bmi
+		double d2 = purposeWeight/((height*0.01)*(height*0.01)); //목표 bmi
+		double result = d-d2;
+		if(result>18) {//고도비만에서 저체중 원하는 사람
 			calorie1 = 100;
-			calorie2 = 300;
-			calorie3 = 100;
-			calorie4 = 400;
-		} else if(29.9>=d && d>=25) {
-			calorie1 = 300;
-			calorie2 = 400;
-			calorie3 = 300;
-			calorie4 = 500;
-		} else if(24.9>d && d>=18.5) {
-			calorie1 = 400;
-			calorie2 = 500;
-			calorie3 = 400;
-			calorie4 = 500;
-		} else {
-			calorie1 = 500;
 			calorie2 = 1000;
-			calorie3 = 500;
+			calorie3 = 100;
+			calorie4 = 1000;
+		} else if(result>=12) {//중등도비반에서 저체중
+			calorie1 = 100;
+			calorie2 = 1000;
+			calorie3 = 100;
+			calorie4 = 1000;
+		} else if(result>=7) {//경도비반에서 저체중
+			calorie1 = 100;
+			calorie2 = 1000;
+			calorie3 = 100;
+			calorie4 = 1000;
+		} else if(result>=5) {//과체중에서 저체중
+			calorie1 = 100;
+			calorie2 = 1000;
+			calorie3 = 100;
+			calorie4 = 1000;
+		} else if(result>=0) {//정상에서 저체중
+			calorie1 = 100;
+			calorie2 = 1000;
+			calorie3 = 100;
+			calorie4 = 1000;
+		} else {//저체중에서 살찌기
+			calorie1 = 100;
+			calorie2 = 1000;
+			calorie3 = 100;
 			calorie4 = 1000;
 		}
 		
@@ -180,7 +192,7 @@ public class CalendarDAO {
 		String sql2 = prop.getProperty("insertCalendarExerciseData");
 		String [] count = {"아침", "점심", "저녁"};
 		try {
-			int[] calorie = bmiCal(di.getHeight(), di.getWeight());
+			int[] calorie = bmiCal(di.getHeight(), di.getWeight(), di.getPurposeWeight());
 			Date datestart = di.getDietDate();
 			pstmt = conn.prepareStatement(sql);
 			pstmt2 = conn.prepareStatement(sql2);
@@ -242,7 +254,7 @@ public class CalendarDAO {
 				}
 				if(rs.getString("title").equals("운동")) {
 					cal.setStart(movement(date));
-					cal.setDescription(rs.getString("ex_name"));
+					cal.setDescription(rs.getString("ex_name")+rs.getString("ex_time"));
 					cal.setColor("blue");
 				} else if(rs.getString("title").equals("배경")){
 					cal.setDescription("배경");
@@ -270,6 +282,60 @@ public class CalendarDAO {
 		}
 		
 		return list;
+	}
+
+	public int selectID(Connection conn, String member_id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		String sql = prop.getProperty("selectCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, member_id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("cnt");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int resetResearch(Connection conn, String member_id) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteResearch");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, member_id);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int resetCalendar(Connection conn, String member_id) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteCalendar");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, member_id);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }
