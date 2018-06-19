@@ -70,8 +70,8 @@
 
 </style>
 <br>
-<form action="<%=request.getContextPath()%>/resetResearch">
-	<input type="submit" style="float:right;" value="Reset" /> 
-</form>
-<div id='calendar'></div>
+<div id='calendar'>
+<form style="float:right;"  action="<%=request.getContextPath()%>/resetResearch">
+	달력초기화 : <input type="submit" value="Reset" /> 
+</form></div>
 <%@ include file="/views/common/footer.jsp"%>
